@@ -45,12 +45,12 @@ app.post("/tasks", (req, res) => {
   try {
     db.validateInput(req.body);
     db.insertOne(req.body);
-    status = 200;
+    status = 201;
     result = {
       result: "Task Inserted successfully",
     };
   } catch (error) {
-    status = 405;
+    status = 400;
     result = {
       message: error.message,
     };
