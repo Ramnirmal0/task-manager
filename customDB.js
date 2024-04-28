@@ -17,15 +17,17 @@ class CustomDB {
   }
   validateInput(item) {
     if (
-      item.title.trim() === "" &&
-      item.description.trim() === "" &&
-      typeof item.title !== "string" &&
-      typeof item.description !== "string" &&
+      item.title.trim() === "" ||
+      item.description.trim() === "" ||
+      item.hasOwnProperty("id") ||
+      typeof item.title !== "string" ||
+      typeof item.description !== "string" ||
       typeof item.completed !== "boolean"
     ) {
       throw new Error("Invalid input");
+    } else {
+      return true;
     }
-    return true;
   }
   deleteOne(uuid) {
     delete this.#data[uuid];
@@ -38,6 +40,12 @@ class CustomDB {
       }
     }
     return true;
+  }
+  find() {
+    return Object.keys(this.#data).map((key) => this.#data[key]) || [];
+  }
+  findOne(uuid) {
+    return this.#data[uuid] || {};
   }
 }
 
