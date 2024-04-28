@@ -4,6 +4,11 @@ class CustomDB {
   constructor() {
     this.#data = {};
     this.#uuid = 0;
+    this.insertOne({
+      title: "Set up environment",
+      description: "Install Node.js, npm, and git",
+      completed: true,
+    });
   }
   insertOne(item) {
     this.#uuid++;
@@ -11,7 +16,7 @@ class CustomDB {
       id: this.#uuid,
       title: item.title,
       description: item.description,
-      completed: Boolean(item.completed),
+      completed: item.completed,
     };
     return true;
   }
@@ -30,10 +35,12 @@ class CustomDB {
     }
   }
   deleteOne(uuid) {
+    if (!this.#data[uuid]) throw new Error("Invalid uuid");
     delete this.#data[uuid];
     return true;
   }
-  updateOne(uuid , item) {
+  updateOne(uuid, item) {
+    if (!this.#data[uuid]) throw new Error("Invalid uuid");
     for (let key in item) {
       if (this.#data[uuid].hasOwnProperty(key) && !item.hasOwnProperty("id")) {
         this.#data[uuid][key] = item[key];
@@ -45,6 +52,7 @@ class CustomDB {
     return Object.keys(this.#data).map((key) => this.#data[key]) || [];
   }
   findOne(uuid) {
+    if (!this.#data[uuid]) throw new Error("Invalid uuid");
     return this.#data[uuid] || {};
   }
 }

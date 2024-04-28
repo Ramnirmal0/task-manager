@@ -17,7 +17,7 @@ app.get("/tasks", (req, res) => {
   } catch (error) {
     status = 405;
     result = {
-      message: error,
+      message: error.message,
     };
   }
   res.status(status).send(result);
@@ -31,9 +31,9 @@ app.get("/tasks/:id", (req, res) => {
     status = 200;
     result = db.findOne(uuid);
   } catch (error) {
-    status = 405;
+    status = 404;
     result = {
-      message: error,
+      message: error.message,
     };
   }
   res.status(status).send(result);
@@ -45,12 +45,12 @@ app.post("/tasks", (req, res) => {
   try {
     db.validateInput(req.body);
     db.insertOne(req.body);
-    status = 200;
+    status = 201;
     result = {
       result: "Task Inserted successfully",
     };
   } catch (error) {
-    status = 405;
+    status = 400;
     result = {
       message: error.message,
     };
@@ -62,6 +62,15 @@ app.put("/tasks/:id", (req, res) => {
   let result;
   let status;
   try {
+    db.validateInput(req.body);
+  } catch (error) {
+    status = 400;
+    result = {
+      message: error.message,
+    };
+    return res.status(status).send(result);
+  }
+  try {
     const uuid = req.params.id;
     db.validateInput(req.body);
     db.updateOne(uuid, req.body);
@@ -70,7 +79,7 @@ app.put("/tasks/:id", (req, res) => {
       result: "Task Updated Successfully",
     };
   } catch (error) {
-    status = 405;
+    status = 404;
     result = {
       message: error.message,
     };
@@ -89,7 +98,7 @@ app.delete("/tasks/:id", (req, res) => {
       result: "deleted successfully",
     };
   } catch (error) {
-    status = 405;
+    status = 404;
     result = {
       message: error.message,
     };
