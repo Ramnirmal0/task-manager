@@ -31,7 +31,7 @@ app.get("/tasks/:id", (req, res) => {
     status = 200;
     result = db.findOne(uuid);
   } catch (error) {
-    status = 405;
+    status = 404;
     result = {
       message: error,
     };
@@ -70,7 +70,7 @@ app.put("/tasks/:id", (req, res) => {
       result: "Task Updated Successfully",
     };
   } catch (error) {
-    status = 405;
+    status = 404;
     result = {
       message: error.message,
     };
@@ -89,7 +89,7 @@ app.delete("/tasks/:id", (req, res) => {
       result: "deleted successfully",
     };
   } catch (error) {
-    status = 405;
+    status = 404;
     result = {
       message: error.message,
     };
