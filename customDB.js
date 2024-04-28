@@ -7,7 +7,7 @@ class CustomDB {
   }
   insertOne(item) {
     this.#uuid++;
-    this.#data[this.uuid] = {
+    this.#data[this.#uuid] = {
       id: this.#uuid,
       title: item.title,
       description: item.description,
