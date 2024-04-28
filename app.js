@@ -62,6 +62,15 @@ app.put("/tasks/:id", (req, res) => {
   let result;
   let status;
   try {
+    db.validateInput(req.body);
+  } catch (error) {
+    status = 400;
+    result = {
+      message: error.message,
+    };
+    return res.status(status).send(result);
+  }
+  try {
     const uuid = req.params.id;
     db.validateInput(req.body);
     db.updateOne(uuid, req.body);
