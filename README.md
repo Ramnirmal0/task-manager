@@ -21,7 +21,7 @@ npm install
 4. Start the server:
 
 ```bash
-node server.js
+npm start
 ```
 
 By default, the server will run on port 3000.
@@ -115,6 +115,3 @@ module.exports = app;
 ## Conclusion
 
 This API provides basic CRUD functionality for managing tasks. It utilizes Express for routing and a custom database module for data storage and retrieval.
-```
-
-Save the above content into a file with a `.md` extension, and you'll have a Markdown documentation for your API.
