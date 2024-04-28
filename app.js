@@ -2,6 +2,9 @@ const express = require("express");
 const app = express();
 const port = 3000;
 
+const CustomDB = require("./customDB");
+const db = new CustomDB();
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
