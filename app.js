@@ -17,7 +17,7 @@ app.get("/tasks", (req, res) => {
   } catch (error) {
     status = 405;
     result = {
-      message: error,
+      message: error.message,
     };
   }
   res.status(status).send(result);
@@ -33,7 +33,7 @@ app.get("/tasks/:id", (req, res) => {
   } catch (error) {
     status = 404;
     result = {
-      message: error,
+      message: error.message,
     };
   }
   res.status(status).send(result);

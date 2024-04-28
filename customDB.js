@@ -4,6 +4,11 @@ class CustomDB {
   constructor() {
     this.#data = {};
     this.#uuid = 0;
+    this.insertOne({
+      title: "Set up environment",
+      description: "Install Node.js, npm, and git",
+      completed: true,
+    });
   }
   insertOne(item) {
     this.#uuid++;
