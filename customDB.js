@@ -11,7 +11,7 @@ class CustomDB {
       id: this.#uuid,
       title: item.title,
       description: item.description,
-      completed: Boolean(item.completed),
+      completed: item.completed,
     };
     return true;
   }
