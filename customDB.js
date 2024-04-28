@@ -33,7 +33,7 @@ class CustomDB {
     delete this.#data[uuid];
     return true;
   }
-  updateOne(item, uuid) {
+  updateOne(uuid , item) {
     for (let key in item) {
       if (this.#data[uuid].hasOwnProperty(key) && !item.hasOwnProperty("id")) {
         this.#data[uuid][key] = item[key];

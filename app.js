@@ -13,9 +13,7 @@ app.get("/tasks", (req, res) => {
   let status;
   try {
     status = 200;
-    result = {
-      result: db.find(),
-    };
+    result = db.find();
   } catch (error) {
     status = 405;
     result = {
@@ -26,14 +24,12 @@ app.get("/tasks", (req, res) => {
 });
 
 app.get("/tasks/:id", (req, res) => {
-  const uuid = req.params.id;
   let result;
   let status;
   try {
+    const uuid = req.params.id;
     status = 200;
-    result = {
-      result: db.findOne(uuid),
-    };
+    result = db.findOne(uuid);
   } catch (error) {
     status = 405;
     result = {
@@ -64,30 +60,41 @@ app.post("/tasks", (req, res) => {
 
 app.put("/tasks/:id", (req, res) => {
   let result;
+  let status;
   try {
-  } catch (error) {
+    const uuid = req.params.id;
+    db.validateInput(req.body);
+    db.updateOne(uuid, req.body);
+    status = 200;
     result = {
-      statusCode: 405,
-      body: {
-        message: error,
-      },
+      result: "Task Updated Successfully",
+    };
+  } catch (error) {
+    status = 405;
+    result = {
+      message: error.message,
     };
   }
-  res.send(result);
+  res.status(status).send(result);
 });
 
 app.delete("/tasks/:id", (req, res) => {
   let result;
+  let status;
   try {
-  } catch (error) {
+    const uuid = req.params.id;
+    db.deleteOne(uuid);
+    status = 200;
     result = {
-      statusCode: 405,
-      body: {
-        message: error,
-      },
+      result: "deleted successfully",
+    };
+  } catch (error) {
+    status = 405;
+    result = {
+      message: error.message,
     };
   }
-  res.send(result);
+  res.status(status).send(result);
 });
 
 app.listen(port, (err) => {
